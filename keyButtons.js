@@ -1,92 +1,33 @@
-const keyButton = [
-    {
-        name: '`',
-        atribute: 'simbol'
+class Title {
+    constructor(){
+        this.elem = document.createElement('h1')
+        this.text = document.createTextNode('RSS Виртуальная клавиатура')
+    }
+    apendTo(parent){
+        parent.appendChild(this.elem)
+        document.body.childNodes[2].appendChild(this.text)
+    }
 
-    },
-    {
-        name: '1',
-    },
-    {
-        name: '2',
-    },
-    {
-        name: '3',
-    },
-    {
-        name: '4',
-    },
-    {
-        name: '5',
-    },
-    {
-        name: '6',
-    },
-    {
-        name: '7',
-    },
-    {
-        name: '8',
-    },
-    {
-        name: '9',
-    },
-    {
-        name: '0',
-    },
-    {
-        name: '-',
-    },
-    {
-        name: '=',
-    },
-    {
-        name: 'Backspace',
-        atribute: 'special-large'
+}
+new Title().apendTo(document.body);
 
-    },
-    {
-        name: 'Tabe',
-        atribute: 'special-small'
+class Textarea {
+    constructor(){
+        this.elem = document.createElement('textarea')
+    }
+    apendTo(parent){
+        parent.appendChild(this.elem)
+    }
+}
 
-    },
-    {
-        name: 'Q',
-    },
-    {
-        name: 'W',
-    },
-    {
-        name: 'E',
-    },
-    {
-        name: 'R',
-    },
-    {
-        name: 'T',
-    },
-    {
-        name: 'Y',
-    },
-    {
-        name: 'U',
-    },
-    {
-        name: 'I',
-    },
-    {
-        name: 'O',
-    },
-    {
-        name: 'P',
-    },
-    {
-        name: '[',
-    },
-    {
-        name: ']',
-    },
-    {
-        name: '&#8260;',
-    },
-]
+new Textarea().apendTo(document.body);
+
+class Keysection {
+    constructor(){
+        this.elem = document.createElement('div')
+    }
+    apendTo(parent){
+        parent.appendChild(this.elem)
+    }
+}
+new Keysection().apendTo(document.body)
