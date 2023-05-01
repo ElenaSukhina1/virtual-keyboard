@@ -9,6 +9,9 @@ let secondArrRu = ['Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 
 let thirdArrRu = ['CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter']
 let fourArrRu = ['Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '▲', 'Shift']
 
+
+
+
 function createKeyBlock (){
 for(let i = 0; i < 5; i++){
     let keyBlock = document.createElement('div')
@@ -89,15 +92,16 @@ function createKeyButtons(){
 }
 createKeyButtons()
 
-const buttonsArr = Array.from(document.querySelectorAll('button'))
+let buttonsArr = Array.from(document.querySelectorAll('button'))
 document.addEventListener('keydown', function(event) {
     console.log(event.key)
     buttonsArr.forEach(value=>{
-        value.classList.remove('active')
-        // не подсвечивает стрелки ctrl
+        // value.classList.remove('active')
         if(event.key === 'Control' && value.textContent === 'Ctrl'){
+            value.classList.remove('ctrl')
             value.classList.add('active') 
         } else if(event.key === 'Meta' && value.textContent === 'Win'){
+            value.classList.remove('ctrl')
             value.classList.add('active') 
         }else if(event.key === 'Delete' && value.textContent === 'Del'){
             value.classList.add('active') 
@@ -110,6 +114,15 @@ document.addEventListener('keydown', function(event) {
         }else if(event.key === 'ArrowRight' && value.textContent === '►'){
             value.classList.add('active') 
         }
+        else if(event.key === 'CapsLock' && value.textContent === 'CapsLock'){
+            if(!value.classList.contains('active')){
+                value.classList.add('active')
+                upperCase()
+            } else {
+                value.classList.remove('active')
+                lowerCase()
+            }
+        }
         else if(value.textContent === event.key){
             value.classList.add('active') 
         }
@@ -119,8 +132,10 @@ document.addEventListener('keydown', function(event) {
   document.addEventListener('keyup', function(event) {
     buttonsArr.forEach(value=>{
         if(event.key === 'Control' && value.textContent === 'Ctrl'){
+            value.classList.add('ctrl')
             value.classList.remove('active')
         } else if(event.key === 'Meta' && value.textContent === 'Win'){
+            value.classList.add('ctrl')
             value.classList.remove('active')
         } else if(event.key === 'Delete' && value.textContent === 'Del'){
             value.classList.remove('active') 
@@ -132,6 +147,7 @@ document.addEventListener('keydown', function(event) {
             value.classList.remove('active') 
         }else if(event.key === 'ArrowRight' && value.textContent === '►'){
             value.classList.remove('active') 
+        } else if(event.key === 'CapsLock' && value.textContent === 'CapsLock'){ 
         }
         else if(value.textContent === event.key){
             value.classList.remove('active') 
@@ -151,9 +167,22 @@ for(let key of buttonsArr){
             console.log(text.selectionStart, text.value[text.selectionStart])
             text.value = text.value.slice(0, text.selectionStart) + text.value.slice(text.selectionStart+1)
         } 
-        // if(key.textContent === 'Enter'){  Сделать Enter
-        //     text.value += '\n'
-        // } 
+        else if(key.textContent === 'Enter'){
+            text.value = text.value.slice(0, text.selectionStart) + '\n' + text.value.slice(text.selectionStart)
+        } 
+        else if(key.textContent === 'Tab'){
+            text.value += '  '
+        }
+        else if(key.textContent === 'Shift' || key.textContent === 'Ctrl' || key.textContent === 'Win' || key.textContent === 'Alt'){
+            text.value = text.value
+        }
+        else if(key.textContent === 'CapsLock' && key.classList.contains('active')){ //Большие буквы
+            console.log(key)
+            lowerCase();
+            }
+        else if(key.textContent === 'CapsLock' && !key.classList.contains('active')){
+            upperCase()
+        }
         else {
         console.log(key.textContent)
         text.value +=  key.textContent;
@@ -161,62 +190,141 @@ for(let key of buttonsArr){
     }
 }
 
+//большие буквы
+function upperCase(){
+    buttonsArr.forEach(value =>{
+        if(value.textContent === 'Tab' || value.textContent === 'CapsLock' || value.textContent === 'Shift' || value.textContent === 'Ctrl'
+        || value.textContent === 'Win' || value.textContent === 'Alt' || value.textContent === 'Enter' || value.textContent === 'Del'
+        || value.textContent === 'Backspace'){
+            value.textContent = value.textContent
+        } 
+        else {
+            value.textContent = value.textContent.toLocaleUpperCase()
+        }
+    })
+}
+function lowerCase(){
+    buttonsArr.forEach(value =>{
+        if(value.textContent === 'Tab' || value.textContent === 'CapsLock' || value.textContent === 'Shift' || value.textContent === 'Ctrl'
+        || value.textContent === 'Win' || value.textContent === 'Alt' || value.textContent === 'Enter' || value.textContent === 'Del'
+        || value.textContent === 'Backspace'){
+            value.textContent = value.textContent
+        } 
+        else {
+            value.textContent = value.textContent.toLocaleLowerCase()
+        }
+    })
+}
+
+let capsButton = document.querySelectorAll('.caps')[0]
+capsButton.addEventListener('click', ()=>{
+    capsButton.classList.toggle('active')
+})
+
 // смена языка
-// function runOnKeys(changeLang, ...codes) {
-//     let pressed = new Set();
-//     document.addEventListener('keydown', function(event) {
-//       pressed.add(event.code);
-//       for (let code of codes) { // все ли клавиши из набора нажаты?
-//         if (!pressed.has(code)) {
-//           return;
-//         }
-//       }
-//       pressed.clear();
+  function changeLangRu(){
+    let arr2 = document.querySelectorAll('.key-block')[1]
+    let arr3 = document.querySelectorAll('.key-block')[2]
+    let arr4 = document.querySelectorAll('.key-block')[3]
+    let child2 = Array.from(arr2.children)
+    let child3 = Array.from(arr3.children)
+    let child4 = Array.from(arr4.children)
+     for(let i = 0; i < child2.length; i++){
+        for(let y = 0; y < secondArrRu.length; y ++){
+            child2[i].innerHTML = secondArrRu[y]
+            i++;
+        }
+     }
+     for(let i = 0; i < child3.length; i++){
+        for(let y = 0; y < thirdArrRu.length; y ++){
+            child3[i].innerHTML = thirdArrRu[y]
+            i++;
+        }
+     }
+     for(let i = 0; i < child4.length; i++){
+        for(let y = 0; y < fourArrRu.length; y ++){
+            child4[i].innerHTML = fourArrRu[y]
+            i++;
+        }
+     }
+     keybordSection.classList.toggle('ru')
+  }
+  function changeLangEng(){
+    let arr2 = document.querySelectorAll('.key-block')[1]
+    let arr3 = document.querySelectorAll('.key-block')[2]
+    let arr4 = document.querySelectorAll('.key-block')[3]
+    let child2 = Array.from(arr2.children)
+    let child3 = Array.from(arr3.children)
+    let child4 = Array.from(arr4.children)
+     for(let i = 0; i < child2.length; i++){
+        for(let y = 0; y < secondArr.length; y ++){
+            child2[i].innerHTML = secondArr[y]
+            i++;
+        }
+     }
+     for(let i = 0; i < child3.length; i++){
+        for(let y = 0; y < thirdArr.length; y ++){
+            child3[i].innerHTML = thirdArr[y]
+            i++;
+        }
+     }
+     for(let i = 0; i < child4.length; i++){
+        for(let y = 0; y < fourArr.length; y ++){
+            child4[i].innerHTML = fourArr[y]
+            i++;
+        }
+     }
+     keybordSection.classList.remove('ru')
+  }
 
-//       changeLang();
-//     });
-//     document.addEventListener('keyup', function(event) {
-//       pressed.delete(event.code);
-//     });
+  changeLangRu()
+changeLangEng()
 
+function changLanguage(){
+    let arr = []
+    document.addEventListener('keydown', function(event){
+        console.log(event.key)
+        if(arr.length > 1){
+            arr.splice(0, 2);
+            console.log(arr)
+        } 
+        if(event.key === 'Control' || event.key === 'Alt'){
+
+        
+            arr.push(event.key)
+           console.log(arr)
+        }
+           if(arr[0] === 'Control' && arr[1] === 'Alt' && !keybordSection.classList.contains('ru')){
+            changeLangRu()
+           } else if(arr[0] === 'Control' && arr[1] === 'Alt' && keybordSection.classList.contains('ru')){
+            changeLangEng()
+           }
+    
+    })
+
+}
+
+changLanguage()
+
+//сохраниние раскладки при перезагрузке
+console.log(keybordSection.className)
+console.log(buttonsArr)
+
+
+
+// function setLocalStorage() {
+//     localStorage.setItem('name', keybordSection.className);
+//     localStorage.setItem('buttonsArr', JSON.stringify('buttonsArr'));
+    
 //   }
+//   window.addEventListener('beforeunload', setLocalStorage)
 
-//   runOnKeys(
-//     () => changeLang(),
-//     "ControlLeft",
-//     "AltLeft"
-//   );
-//   runOnKeys(
-//     () => changeLang(),
-//     "ControlRight",
-//     "AltRight"
-//   );
-
-//   function changeLang(){
-//     let arr2 = document.querySelectorAll('.key-block')[1]
-//     let arr3 = document.querySelectorAll('.key-block')[2]
-//     let arr4 = document.querySelectorAll('.key-block')[3]
-//     let child2 = Array.from(arr2.children)
-//     let child3 = Array.from(arr3.children)
-//     let child4 = Array.from(arr4.children)
-//      for(let i = 0; i < child2.length; i++){
-//         for(let y = 0; y < secondArrRu.length; y ++){
-//             child2[i].innerHTML = secondArrRu[y]
-//             i++;
-//         }
-//      }
-//      for(let i = 0; i < child3.length; i++){
-//         for(let y = 0; y < thirdArrRu.length; y ++){
-//             child3[i].innerHTML = thirdArrRu[y]
-//             i++;
-//         }
-//      }
-//      for(let i = 0; i < child4.length; i++){
-//         for(let y = 0; y < fourArrRu.length; y ++){
-//             child4[i].innerHTML = fourArrRu[y]
-//             i++;
-//         }
-//      }
-  
+//   function getLocalStorage() {
+//     if(localStorage.getItem('name')) {
+//         keybordSection.className = localStorage.getItem('name');
+//     }
+//     if(localStorage.getItem('buttonsArr')) {
+//         buttonsArr = JSON.parse(localStorage.getItem('buttonsArr'));
+//     }
 //   }
-  
+//   window.addEventListener('load', getLocalStorage)
