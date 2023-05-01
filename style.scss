@@ -1,0 +1,106 @@
+.textarea-style {
+  display: block;
+  width: 700px;
+  height: 200px;
+  margin: 10px auto 10px;
+  padding: 10px;
+  font-size: 18px;
+  color: #444444;
+}
+
+.colortext{
+  text-align: center;
+  color: rgb(2, 33, 136);
+  font-size: 40px;
+}
+
+.key-section{
+  width: 704px;
+  margin: 0 auto;
+  padding: 5px;
+  padding-left: 0;
+  padding-bottom: 0;
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,0.5869806540780375) 0%, rgba(3,255,162,0) 100%);
+  border: 0.5px solid #222222;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  border-radius: 5px;
+}
+
+.description,
+.lang {
+  text-align: center;
+  color: rgb(0, 17, 72);
+  font-size: 20px;
+}
+
+.key-block{
+  display: flex;
+  flex-wrap: nowrap;
+  clear: both;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 8px;
+}
+
+.button{
+  width: 40px;
+  height: 40px;
+  margin-left: 6px;
+  font-weight: 500;
+  line-height: 40px;
+  text-align: center;
+  color: #02103a;
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 1, 43, 0.176);
+  cursor: pointer;
+  user-select: none;
+  
+    &:hover{
+      box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+      background: rgb(110,108,158);
+      background: linear-gradient(90deg, rgba(110,108,158,1) 0%, rgba(19,67,181,0.6289974608007265) 53%);
+    }
+    &:active{
+      border-radius: 40%;
+      background: #0aad94;
+    }
+}
+
+.active{
+  border-radius: 40%;
+  background-color: #0fc591;
+}
+
+
+.backspace{
+  width: 20%;
+  background: rgb(27,157,159);
+  background: linear-gradient(0deg, rgba(27,157,159,0.5869806540780375) 0%, rgba(0,73,184,0) 100%);
+}
+
+.tab{
+  width: 10%;
+  background: rgb(27,157,159);
+  background: linear-gradient(0deg, rgba(27,157,159,0.5869806540780375) 0%, rgba(0,73,184,0) 100%);
+}
+
+.caps{
+  width: 15%;
+  background: rgb(27,157,159);
+  background: linear-gradient(0deg, rgba(27,157,159,0.5869806540780375) 0%, rgba(0,73,184,0) 100%);
+}
+
+.space{
+  width: 45%;
+}
+
+.ctrl{
+  background: rgb(27,157,159);
+  background: linear-gradient(0deg, rgba(27,157,159,0.5869806540780375) 0%, rgba(0,73,184,0) 100%);
+}
+
+.ru{
+
+}
